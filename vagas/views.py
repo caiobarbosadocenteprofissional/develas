@@ -1,9 +1,9 @@
+from django.http import Http404
 from django.shortcuts import render
 from vagas.dados import VAGAS
-from django.http import Http404
 
 def home(request):
-    return render(request, "vagas/home.html")
+    return render(request, "vagas/home.html", {"total": len(VAGAS)})
 
 def mural(request):
     modalidade = request.GET.get("modalidade", "")
@@ -29,4 +29,3 @@ def detalhe(request, vaga_id):
         if vaga["id"] == vaga_id:
             return render(request, "vagas/detalhe.html", {"vaga": vaga})
     raise Http404("Vaga não encontrada")
-
